@@ -84,13 +84,24 @@ nav ul li a:hover::after {
     transform: scaleX(1);
 }
 
+/* START: Reduced Section Spacing */
+section {
+    padding: 80px 20px;
+}
+
+section + section {
+    /* Reduced from 60px to 40px */
+    margin-top: 40px; 
+}
+/* END: Reduced Section Spacing */
+
 /* Main Cover Section */
 #main-cover {
     margin-top: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 50px 20px;
+    padding: 110px 20px;
     background-color: black; /* Adjust as needed */
     color: #ffffff;
 }
@@ -106,7 +117,7 @@ nav ul li a:hover::after {
 
 #main-cover .text-content {
     flex: 1;
-    max-width: 600px;
+    max-width: 550px;
 }
 
 #main-cover h1 {
@@ -120,6 +131,14 @@ nav ul li a:hover::after {
     color:#b0b0b0;
 }
 
+/* START: Contact Info Smaller */
+#main-cover .contact-info-small {
+    font-size: 1em; /* Reduced from 1.2em */
+    margin-top: -10px; /* Pull it up slightly */
+    margin-bottom: 20px;
+}
+/* END: Contact Info Smaller */
+
 #main-cover .image-content {
     flex: 1;
     display: flex;
@@ -128,8 +147,8 @@ nav ul li a:hover::after {
 }
 
 #main-cover .image-content img {
-    width: 500px; /* Adjust the size as needed */
-    height: 500px; /* Match the width to make it a perfect circle */
+    width: 580px; /* Adjust the size as needed */
+    height: 580px; /* Match the width to make it a perfect circle */
     object-fit: cover; /* Ensure the image covers the area and is centered */
     border-radius: 50%; /* Make the image a circle */
 }
@@ -155,32 +174,52 @@ nav ul li a:hover::after {
     color: #5568FE; /* Change this color as per your design */
 }
 
+.social-icons a.github-link:hover {
+    color: #9aa0a6;
+}
+
+.social-icons a.linkedin-link:hover {
+    color: #0a66c2;
+}
+
+.social-icons a.instagram-link:hover {
+    color: #e1306c;
+}
+
+.social-icons a.facebook-link:hover {
+    color: #1877f2;
+}
+
+.social-icons a.discord-link:hover {
+    color: #5865F2;
+}
+
 /* About Me Section */
 #about {
     position: relative;
-    padding: 100px 20px;
+    padding: 140px 20px;
     background-color: black;
     color: #ffffff;
     text-align: center;
-    overflow: hidden;
-    min-height: 700px;
+    overflow: visible;
+    min-height: 980px;
     margin-top: 100px;
 }
 
 #about .container {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 900px;
 }
 
 #about .central-text {
     font-size: 1.1em;
     position: absolute;
-    top: 61%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    width: 400px;
+    width: 440px;
     text-align: center;
 }
 
@@ -195,7 +234,7 @@ nav ul li a:hover::after {
     height: 200px;
     overflow: hidden;
     border-radius: 50%;
-    top: 48%;
+    top: 41%;
     left: 44%;
     transform-origin: center center; /* The point around which each image rotates */
     transform: translate(-50%, -50%);
@@ -238,10 +277,10 @@ nav ul li a:hover::after {
 /* Circular Motion Keyframes */
 @keyframes orbit {
     0% {
-        transform: rotate(0deg) translateX(350px) rotate(0deg); /* Starts at 200px away from the center */
+        transform: rotate(0deg) translateX(420px) rotate(0deg); /* Starts at 200px away from the center */
     }
     100% {
-        transform: rotate(360deg) translateX(350px) rotate(-360deg); /* Keeps the image upright */
+        transform: rotate(360deg) translateX(420px) rotate(-360deg); /* Keeps the image upright */
     }
 }
 
@@ -262,9 +301,8 @@ nav ul li a:hover::after {
     animation-delay: -15s; /* Maximum delay to space all images evenly */
 }
 
-/* Education Section */
+/* Education Section - Keep existing style for the whole section */
 #education {
-    padding: 10px 20px;
     background-color: black;
     color: #ffffff;
     text-align: center;
@@ -283,132 +321,322 @@ nav ul li a:hover::after {
     margin: 0 auto 50px;
 }
 
-/* Timeline Styling */
+/* Timeline Styling - Modified for Centered, Symmetric Layout */
 .timeline {
-    margin-top: 50px;
     position: relative;
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 1000px;
+    margin: 60px auto 0;
+    padding: 0; /* Removed horizontal padding */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the entire timeline content */
 }
 
+/* Vertical Line */
 .timeline::before {
     content: '';
     position: absolute;
-    left: 50%;
-    width: 4px;
-    background-color: #5568FE;
     top: 0;
     bottom: 0;
-    transform: translateX(-50%);
+    left: 50%; /* Center the line */
+    width: 4px;
+    background: linear-gradient(180deg, rgba(85,104,254,0.1), rgba(85,104,254,0.6), rgba(85,104,254,0.1));
+    background-size: 100% 300%;
+    animation: timelineFlow 6s ease-in-out infinite;
+    opacity: 0.6;
+    z-index: 0;
+    transform: translateX(-50%); /* Fine-tune center alignment */
 }
 
 .timeline-item {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Change to space-between for alternating sides */
+    width: 100%; /* Take full width of parent */
     margin-bottom: 50px;
     position: relative;
     transition: transform 0.3s ease;
 }
 
+/* EVEN items (e.g., the second item: University College London) should be on the RIGHT side */
 .timeline-item:nth-child(even) {
-    flex-direction: row-reverse;
+    /* Standard flow: spacer on left, icon on center, content on right */
+    flex-direction: row; 
 }
 
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-}
-
-.timeline-item .timeline-icon {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #5568FE;
-    border-radius: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    animation: pulse 2s infinite; /* Adding pulse animation */
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.3);
-    }
-}
-
-.timeline-item h3 {
-    margin: 0;
-    font-size: 1.5em;
-    color: #d6d5d5;
-}
-
-.timeline-item span {
-    display: block;
-    margin: 10px 0;
-    font-size: 1em;
-    color: #c0c0c0;
-}
-
-.timeline-item p {
-    margin: 0;
-    font-size: 1em;
-    color: #b0b0b0;
+/* ODD items (e.g., the first item: Abbey College Cambridge) should be on the LEFT side */
+.timeline-item:nth-child(odd) {
+    /* Reverse flow: content on left, icon on center, spacer on right */
+    flex-direction: row-reverse; 
 }
 
 /* Timeline Content Box */
 .timeline-item .timeline-content {
-    width: 50%;
-    padding: 20px;
+    position: relative;
+    width: 45%; /* Retain width */
+    padding: 28px;
     background-color: #0e1122;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    border: 1px solid #5568FE; 
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     transition: background-color 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
+    z-index: 2;
+    /* Reset margins for content */
+    margin-left: 0; 
+    margin-right: 0; 
 }
 
-.timeline-item .timeline-content:hover {
-    background-color: #1a1a3b;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02); /* Slightly increase size on hover */
+/* Odd item (LEFT side): Content box is pushed to the left. */
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-right: 50px; /* Space between content and central line/icon */
+    margin-left: 0; /* Align to the left of its 50% container */
+}
+
+/* Even item (RIGHT side): Content box is pushed to the right. */
+.timeline-item:nth-child(even) .timeline-content {
+    margin-left: 50px; /* Space between content and central line/icon */
+    margin-right: 0; /* Align to the right of its 50% container */
+}
+
+/* New: Spacer to take up the opposite 50% of the timeline item */
+.timeline-item .timeline-spacer {
+    width: 45%; /* Match content width */
+    flex-shrink: 0;
+    /* Remove display: none */
+}
+
+/* Connectors are no longer needed as the vertical line is continuous. Remove ::before styles. */
+.timeline-item .timeline-content::before {
+    content: none;
+}
+
+/* Symmetrically center the clickable icon over the main line */
+.timeline-item .timeline-icon.toggle-dropdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    background-color: #5568FE;
+    border: 3px solid #5568FE;
+    border-radius: 50%;
+    transform: translate(-50%, -50%); /* Perfect centering */
+    z-index: 3;
+    box-shadow: 0 0 18px rgba(85, 104, 254, 0.45);
+    animation: pulse 3s ease-in-out infinite;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.timeline-item .timeline-icon.toggle-dropdown:hover {
+    box-shadow: 0 0 25px rgba(85, 104, 254, 0.7);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 /* Dropdown content (hidden by default) */
 .dropdown-content {
-    display: none;
-    margin-top: 15px;
+    /* Re-enabling the smooth display/hide transition logic */
+    display: block; /* Must be block for max-height transition to work */
+    margin-top: 18px;
     background-color: #15172b;
-    padding: 10px;
+    padding: 0 18px; /* Set padding-top/bottom to 0 initially */
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: max-height 0.3s ease; /* Smooth transition */
+    transition: max-height 0.3s ease, padding 0.3s ease; /* Smooth transition for height and padding */
     overflow: hidden;
     max-height: 0; /* Initial state for hidden dropdown */
+    z-index: 3;
+    text-align: left;
+}
+
+.dropdown-content ul {
+    padding-left: 40px;
+    margin: 0;
+    padding-bottom: 18px; /* Padding for the list inside the box */
 }
 
 /* Show dropdown content when the parent is active */
 .timeline-item.active .dropdown-content {
-    display: block;
-    max-height: 200px; /* Adjust as needed for content height */
+    max-height: 200px; /* Adjust as needed for content height (200px is sufficient) */
+    padding-top: 18px; /* Add top padding when active */
+    padding-bottom: 0; /* Remove bottom padding here as it's handled by the ul */
 }
 
-.timeline-item.active {
-    transform: translateY(-10px); /* Slight lift on activation */
+/* Responsive adjustments for the new layout */
+@media (max-width: 768px) {
+    /* Keep existing mobile styles that hide the vertical line and connectors */
+    .timeline::before {
+        display: none;
+    }
+    
+    .timeline-item {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+        padding: 0 20px; /* Add some padding back for content */
+    }
+
+    .timeline-item .timeline-content {
+        width: 100%;
+        margin: 0; /* Remove margin-left/right auto */
+    }
+    
+    .timeline-item .timeline-icon.toggle-dropdown {
+        position: static;
+        transform: none;
+        margin: 20px auto 10px auto;
+    }
+
+    .timeline-item .timeline-spacer {
+        display: none; /* Hide the spacer on mobile */
+    }
+
+    /* Restore old timeline-item h3, span, p styles for mobile center alignment */
+    .timeline-item h3, .timeline-item span, .timeline-item p {
+        text-align: center;
+    }
+}
+
+
+/* Experience Section */
+#experience {
+    background-color: black;
+    color: #ffffff;
+    text-align: center;
+}
+/* Experience Section */
+/* ... (existing styles) ... */
+
+/* New CSS to accommodate the logo */
+.experience-header {
+    /* CHANGED: Use flexbox to align logo and text horizontally */
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; /* Vertically align items */
+    gap: 16px; /* Space between logo and text */
+    min-height: 84px;
+}
+
+.company-logo {
+    /* Define a fixed size for the logo container */
+    width: 100px; 
+    height: 100px;
+    flex-shrink: 0; /* Prevent the logo from shrinking */
+    background-color: #ffffff; /* Optional: white background for better contrast */
+    border-radius: 8px;
+    padding: 5px; /* Optional padding inside the border/background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide parts of the image that might exceed bounds */
+
+}
+
+.company-logo img {
+    /* Make the image fit within the container */
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    object-fit: contain; /* Ensure the entire logo is visible */
+}
+
+.experience-header .header-text {
+    /* New container for the text to manage vertical flow */
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Reduced gap between H3 and Span */
+}
+
+.experience-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #ffffff;
+    line-height: 1.2;
+}
+/* ... (rest of the experience section styles remain the same) ... */
+
+#experience h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+#experience .experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 60px auto 0;
+    align-items: stretch;
+}
+
+.experience-card {
+    /* Existing Styles */
+    background-color: #0e1122;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    text-align: left; /* Keep text left-aligned */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 100%;
+}
+
+.experience-header {
+    /* Use flexbox to align logo and text horizontally */
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+    gap: 16px;
+    min-height: 84px;
+    
+    /* Ensure the header content starts from the left */
+    justify-content: flex-start; 
+}
+
+/* Ensure the text container (header-text) itself is left-aligned */
+.experience-header .header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; 
+    text-align: left; /* Explicitly ensure text is left-aligned within the header */
+}
+
+.experience-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #ffffff;
+    line-height: 1.2;
+    text-align: left; /* Ensure title is left-aligned */
+}
+
+.experience-header span {
+    display: block;
+    color: #c0c0c0;
+    font-size: 1em;
+    margin-top: 6px;
+    text-align: left; /* Ensure date/location is left-aligned */
+}
+
+.experience-card ul {
+    list-style: disc;
+    padding-left: 24px;
+    margin: 0;
+    color: #c0c0c0;
+    line-height: 1.6;
+}
+
+.experience-card li + li {
+    margin-top: 10px;
+}
+
+.highlight-skill {
+    color: #f0c93d;
+    font-weight: 600;
 }
 
 /* Projects Section */
 #projects {
-    padding: 10px 20px;
     background-color: black;
     color: #ffffff;
     text-align: center;
@@ -429,13 +657,18 @@ nav ul li a:hover::after {
     margin-right: auto;
 }
 
-/* Video Styling */
+/* Video/Link Styling - Combined for visual consistency */
 .project-video {
     flex: 1;
     margin-right: 50px;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    display: flex; /* Added for GitHub link styling */
+    align-items: center; /* Added for GitHub link styling */
+    justify-content: center; /* Added for GitHub link styling */
+    height: 250px; /* Standardized height */
+    background-color: #0e1122; /* Background for non-video projects */
 }
 
 .project-video video {
@@ -443,6 +676,78 @@ nav ul li a:hover::after {
     height: auto;
     display: block;
     border-radius: 10px;
+}
+
+.project-video img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* GitHub Link Styling for projects without video */
+.github-project-link {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 2.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.github-project-link i {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #5568FE;
+}
+
+.github-project-link span {
+    font-size: 0.5em;
+    font-weight: 500;
+}
+
+.github-project-link:hover {
+    color: #9aa0a6;
+    transform: translateY(-5px);
+}
+
+/* Extra Project Styling */
+.project.extra-project {
+    margin-top: 50px;
+    border-top: 1px dashed #5568FE40;
+    padding-top: 30px;
+    display: block; /* Make it a block element */
+}
+
+.project.extra-project .project-description {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.project.extra-project .project-description h3 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.more-projects {
+    font-size: 1.1em;
+    color: #c0c0c0;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.more-projects a {
+    color: #5568FE;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.more-projects a:hover {
+    color: #8a99ff;
+    text-decoration: underline;
 }
 
 /* Description Styling */
@@ -464,7 +769,6 @@ nav ul li a:hover::after {
 }
 
 #skills {
-    padding: 50px 20px;
     color: #ffffff;
     text-align: center;
 }
@@ -493,8 +797,14 @@ nav ul li a:hover::after {
 
 .skill-category h3 {
     font-size: 1.8em;
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Base margin-bottom */
     color: #5568FE;
+}
+
+/* NEW RULE: Increase margin after Languages (1) and Technologies & Cloud (3) */
+.skill-category:nth-child(1) h3,
+.skill-category:nth-child(3) h3 {
+    margin-bottom: 60px; /* Creates the visual empty line effect (adjust value as needed) */
 }
 
 .skill-category ul {
@@ -600,19 +910,15 @@ form button:hover {
     transition: color 0.3s ease;
 }
 
-.social-icons a:hover {
-    color: #5568FE;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
     #about .container {
-        height: 300px;
+        height: 480px;
     }
 
     .image-circle {
-        width: 80px;
-        height: 80px;
+        width: 110px;
+        height: 110px;
     }
 
     .central-text h1 {
@@ -623,8 +929,16 @@ form button:hover {
         font-size: 1em;
     }
 
+    section {
+        padding: 60px 16px;
+    }
+
+    section + section {
+        margin-top: 40px;
+    }
+
     #main-cover {
-        padding: 20px 10px;
+        padding: 60px 16px;
     }
 
     #main-cover .container {
@@ -646,8 +960,8 @@ form button:hover {
     }
 
     #main-cover .image-content img {
-        width: 300px; /* Adjusted size for smaller screens */
-        height: 300px; /* Match the width */
+        width: 340px; /* Adjusted size for smaller screens */
+        height: 340px; /* Match the width */
     }
 
     nav {
@@ -678,6 +992,19 @@ form button:hover {
     nav .logo {
         animation: none;
     }
+
+    .timeline::before,
+    /* Removed .timeline-item .timeline-icon from display: none */
+    .timeline-item .timeline-content::before {
+        display: none;
+    }
+    
+    .timeline-item .timeline-icon.toggle-dropdown {
+        position: static;
+        transform: none;
+        margin: 20px auto 10px auto;
+    }
+
     .timeline-item {
         flex-direction: column;
         text-align: center;
@@ -685,18 +1012,11 @@ form button:hover {
 
     .timeline-item .timeline-content {
         width: 100%;
+        margin: 0 auto;
     }
 
-    .timeline-item::before {
-        left: calc(50% - 10px);
-    }
-
-    .timeline-item .timeline-icon {
-        left: calc(50% - 10px);
-    }
-
-    .timeline::before {
-        left: 50%;
+    #experience .experience-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -709,5 +1029,26 @@ form button:hover {
     100% {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@keyframes timelineFlow {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+@keyframes connectorGlow {
+    0%, 100% {
+        opacity: 0.35;
+    }
+    50% {
+        opacity: 0.8;
     }
 }

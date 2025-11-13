@@ -7,24 +7,32 @@ document.querySelector('.menu-toggle').addEventListener('click', function() {
     document.querySelector('nav ul').classList.toggle('active');
 });
 
-document.querySelectorAll('.timeline-item .timeline-content').forEach(item => {
-    item.addEventListener('click', function() {
-        // Toggle the 'active' class on the clicked item
-        this.parentElement.classList.toggle('active');
+// START: Modified JS to listen to the new blue circle icon class
+document.querySelectorAll('.timeline-item .timeline-icon.toggle-dropdown').forEach(icon => {
+    icon.addEventListener('click', function() {
+        // Find the parent timeline-item
+        const timelineItem = this.closest('.timeline-item');
+        
+        // Toggle the 'active' class on the parent item
+        timelineItem.classList.toggle('active');
         
         // Optional: Close other open dropdowns
         document.querySelectorAll('.timeline-item').forEach(el => {
-            if (el !== this.parentElement) {
+            if (el !== timelineItem) {
                 el.classList.remove('active');
             }
         });
     });
 });
+// END: Modified JS to listen to the new blue circle icon class
 
 const sliderWrapper = document.querySelector('.slider-wrapper');
 const projects = document.querySelectorAll('.project-card');
 const prevButton = document.querySelector('.slider-button.prev');
 const nextButton = document.querySelector('.slider-button.next');
+
+// NOTE: The slider functionality is for an element not present in the HTML ('.slider-wrapper', '.project-card', '.slider-button'),
+// but I'm keeping the original logic in case you add it back or it's needed for other code.
 
 let currentIndex = 1;
 
@@ -56,7 +64,9 @@ function moveToPrev() {
     updateSlider();
 }
 
-nextButton.addEventListener('click', moveToNext);
-prevButton.addEventListener('click', moveToPrev);
-
-updateSlider();
+// Check if buttons exist before adding listeners (to prevent errors if slider is not used)
+if (nextButton && prevButton) {
+    nextButton.addEventListener('click', moveToNext);
+    prevButton.addEventListener('click', moveToPrev);
+    updateSlider();
+}
